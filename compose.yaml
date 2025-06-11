@@ -1,0 +1,17 @@
+services:
+    mongo-db:
+        image: mongo:8.0.9
+        container_name: mongo-db
+        ports:
+            - 27020:27017
+        volumes:
+            - mongodb-data:/data/db
+        networks:
+            - bookbazar-network
+
+
+volumes:
+    mongodb-data:
+
+networks:
+    bookbazar-network:
