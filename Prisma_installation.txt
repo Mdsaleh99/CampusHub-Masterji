@@ -1,0 +1,9 @@
+1. Install Packages: npm i prisma @prisma/client
+2. Initialize prisma: npx prisma init
+3. remove comments from .env and change DATABASE_URL according to your need
+4. Design your database schema and run this following command:
+    i.   npx prisma generate
+    ii.  npx prisma migrate dev
+    iii. npx prisma db push
+    iv.  npx prisma format
+    v.   npx prisma studio
