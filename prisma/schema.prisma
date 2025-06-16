@@ -28,4 +28,89 @@ model User {
   role      UserRole @default(STUDENT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  apiKey       ApiKey[]
+  announcement Announcement[]
+  result       Result[]
+  material     Material[]
+  course       Course[]
 }
+
+model ApiKey {
+  id     String @id @default(uuid())
+  key    String
+  userId String
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Announcement {
+  id        String @id @default(uuid())
+  title     String
+  message   String
+  createdBy String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}
+
+model Result {
+  id         String @id @default(uuid())
+  userId     String
+  examId     String
+  totalMarks Float
+  percentage Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exam Exam @relation(fields: [examId], references: [id], onDelete: Cascade)
+}
+
+model Exam {
+  id      String @id @default(uuid())
+  subName String
+  marks   Float
+  status  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  result Result[]
+}
+
+model Course {
+  id          String @id @default(uuid())
+  name        String
+  description String
+  userId      String
+  fees        Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  material Material[]
+}
+
+model Material {
+  id          String @id @default(uuid())
+  courseId    String
+  userId      String
+  title       String
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+
+// https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases/introspection-typescript-postgresql
