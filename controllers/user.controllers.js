@@ -12,7 +12,7 @@ export const signup = asyncHandler(async (req, res, next) => {
         where: {
             email,
         },
-    });
+    })
 
     if (existingUser) {
         return next(new ApiError(401, "User already exists"));
@@ -94,7 +94,11 @@ export const getMe = asyncHandler(async (req, res, next) => {
             password: true
         },
         include: {
-            apiKey: true
+            apiKey: true,
+            announcement: true,
+            result: true,
+            course: true,
+            material: true
         }
     });
     res.status(200).json(

@@ -5,6 +5,10 @@ import cookieParser from "cookie-parser"
 
 
 import userRoutes from "./routes/user.routes.js"
+import announcementRoutes from "./routes/announcement.routes.js"
+import resultRoutes from "./routes/result.routes.js"
+import courseRoutes from "./routes/course.routes.js"
+import adminRoutes from "./routes/admin.routes.js"
 import { globalErrorHandler } from "./middlewares/global_error_handler.middlewares.js"
 
 const app = express()
@@ -25,6 +29,10 @@ app.use(cors({
 
 
 app.use("/api/v1/auth", userRoutes)
+app.use("/api/v1/announcements", announcementRoutes);
+app.use("/api/v1/results", resultRoutes);
+app.use("/api/v1/courses", courseRoutes);
+app.use("/api/v1/admin", adminRoutes);
 
 
 

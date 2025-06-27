@@ -61,7 +61,6 @@ model Announcement {
 model Result {
   id         String @id @default(uuid())
   userId     String
-  examId     String
   totalMarks Float
   percentage Float
 
@@ -69,11 +68,13 @@ model Result {
   updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  exam Exam @relation(fields: [examId], references: [id], onDelete: Cascade)
+
+  exams Exam[]
 }
 
 model Exam {
   id      String @id @default(uuid())
+  resultId String
   subName String
   marks   Float
   status  String
@@ -81,7 +82,7 @@ model Exam {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  result Result[]
+  result Result @relation(fields: [resultId], references: [id], onDelete: Cascade)
 }
 
 model Course {
